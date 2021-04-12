@@ -1,4 +1,6 @@
 const aulaModel = require('../models').Aula
+const cursoModel = require('../models').Curso
+const usuarioModel = require('../models').Usuario
 
 exports.listAll = (req, res) => {
     aulaModel.findAll()
@@ -16,6 +18,18 @@ exports.createOne = (req,res) => {
 
 exports.listOne = (req,res) => {
     aulaModel.findAll({where:{id:req.params.id}})
+        .then(aula => {res.send(aula)})
+        .catch(error => {res.send(error)})
+}
+
+exports.listOneAll = (req,res) => {
+    aulaModel.findAll({where:{id:req.params.id},
+        include:[
+            {model: cursoModel,
+            include: [
+                {model: usuarioModel}
+            ]}
+        ]})
         .then(aula => {res.send(aula)})
         .catch(error => {res.send(error)})
 }

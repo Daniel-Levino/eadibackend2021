@@ -9,4 +9,7 @@ module.exports = function (app) {
         .get(aulaController.listOne)
         .put(aulaController.updateOne)
         .delete(aulaController.deleteOne)
+    
+    app.route('/aula/tudo/:id')
+        .get(aulaController.listOneAll)
 }
